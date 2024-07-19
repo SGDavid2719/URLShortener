@@ -8,6 +8,7 @@ import com.urlshortener.model.URL;
 import com.urlshortener.service.URLService;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -29,5 +30,17 @@ public class URLController {
                 .map(value -> ResponseEntity.ok(value.getLongUrl()))
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body("Short URL not found for the given long URL"));
+    }
+
+    @GetMapping("/urls")
+    public ResponseEntity<List<URL>> getAllUrls() {
+        List<URL> urls = urlService.getAllUrls();
+        return ResponseEntity.ok(urls);
+    }
+
+    @DeleteMapping("/urls/{id}")
+    public ResponseEntity<Void> deleteUrl(@PathVariable Long id) {
+        urlService.deleteUrl(id);
+        return ResponseEntity.noContent().build();
     }
 }
