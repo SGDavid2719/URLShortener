@@ -7,6 +7,9 @@ target/
 ### Properties ###
 src/main/resources/local.application.properties
 
+### Curls ###
+src/test/postman/curls.txt
+
 ### STS ###
 .apt_generated
 .classpath
