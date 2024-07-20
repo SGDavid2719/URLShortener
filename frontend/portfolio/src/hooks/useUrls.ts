@@ -7,7 +7,7 @@ export function useUrls() {
 
 	// UseEffects
 	useEffect(() => {
-		fetch("/api/urls", {
+		fetch(`${process.env.VITE_REACT_APP_API_URL}/urls`, {
 			method: "GET",
 		})
 			.then((response) => response.json())

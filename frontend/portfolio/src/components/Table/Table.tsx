@@ -10,7 +10,7 @@ interface Table {
 export function Table({ urls, deleteById }: Table) {
 	// Functions
 	const deleteUrl = (id: number) => {
-		fetch(`/api/urls/${id}`, {
+		fetch(`${process.env.VITE_REACT_APP_API_URL}/urls/${id}`, {
 			method: "DELETE",
 		})
 			.then((_) => {
@@ -22,7 +22,7 @@ export function Table({ urls, deleteById }: Table) {
 	};
 
 	const redirectToShortUrl = (shortCode: string) => {
-		fetch(`/api/${shortCode}`, {
+		fetch(`${process.env.VITE_REACT_APP_API_URL}/${shortCode}`, {
 			method: "GET",
 		})
 			.then((response) => response.text())

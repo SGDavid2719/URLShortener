@@ -17,7 +17,7 @@ export function Form({ addUrl }: Form) {
 
 	const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		fetch("/api/shorten", {
+		fetch(`${process.env.VITE_REACT_APP_API_URL}/shorten`, {
 			method: "POST",
 			body: longUrl,
 			headers: {
@@ -37,7 +37,7 @@ export function Form({ addUrl }: Form) {
 	};
 
 	const redirectToShortUrl = (shortCode: string) => {
-		fetch(`/api/${shortCode}`, {
+		fetch(`${process.env.VITE_REACT_APP_API_URL}/${shortCode}`, {
 			method: "GET",
 		})
 			.then((response) => response.text())
