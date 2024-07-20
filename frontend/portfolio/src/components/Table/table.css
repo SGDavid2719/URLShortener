@@ -1,0 +1,20 @@
+h1 {
+	font-weight: bold;
+	color: var(--primary-neon-blue);
+	font-size: 3rem;
+	margin-bottom: 3rem;
+}
+
+table {
+	width: 100%;
+}
+
+th {
+	padding-bottom: 1rem;
+	font-size: xx-large;
+}
+
+td {
+	text-align: center;
+	margin-top: 0.5rem;
+}

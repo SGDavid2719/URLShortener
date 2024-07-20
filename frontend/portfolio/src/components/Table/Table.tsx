@@ -1,36 +1,40 @@
-import { useState, useEffect } from "react";
 import { URL } from "../../interfaces/types";
+import { Button } from "../Button/Button";
+import "./table.css";
 
-export function Table() {
-	// States
-	const [urls, setUrls] = useState<URL[]>([]);
+interface Table {
+	urls: URL[];
+	deleteById: (id: number) => void;
+}
 
-	// UseEffects
-	useEffect(() => {
-		fetch("/api/urls", {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((data) => setUrls(data))
-			.catch((error) => console.error(error));
-	}, []);
-
+export function Table({ urls, deleteById }: Table) {
 	// Functions
 	const deleteUrl = (id: number) => {
 		fetch(`/api/urls/${id}`, {
 			method: "DELETE",
 		})
 			.then((_) => {
-				setUrls(urls.filter((url) => url.id !== id));
+				deleteById(id);
 			})
 			.catch((error) => {
 				console.error("There was an error deleting the URL!", error);
 			});
 	};
 
+	const redirectToShortUrl = (shortCode: string) => {
+		fetch(`/api/${shortCode}`, {
+			method: "GET",
+		})
+			.then((response) => response.text())
+			.then((url) => {
+				window.open(url);
+			})
+			.catch((error) => console.error(error));
+	};
+
 	return (
 		<div>
-			<h2>All URLs</h2>
+			<h1>All URLs</h1>
 			<table>
 				<thead>
 					<tr>
@@ -43,9 +47,13 @@ export function Table() {
 					{urls.map((url) => (
 						<tr key={url.id}>
 							<td>{url.longUrl}</td>
-							<td>{url.shortCode}</td>
 							<td>
-								<button onClick={() => deleteUrl(url.id)}>Delete</button>
+								<Button onClick={() => redirectToShortUrl(url.shortCode)}>
+									{url.shortCode}
+								</Button>
+							</td>
+							<td>
+								<Button onClick={() => deleteUrl(url.id)}>Delete</Button>
 							</td>
 						</tr>
 					))}

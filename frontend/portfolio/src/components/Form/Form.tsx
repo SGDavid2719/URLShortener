@@ -1,8 +1,19 @@
 import { useState } from "react";
+import { Button } from "../Button/Button";
+import "./form.css";
+import { Input } from "../Input/Input";
+import { URL } from "../../interfaces/types";
 
-export function Form() {
+interface Form {
+	addUrl: (newUrl: URL) => void;
+}
+
+export function Form({ addUrl }: Form) {
+	// States
 	const [longUrl, setLongUrl] = useState("");
 	const [shortCode, setShortCode] = useState("");
+
+	// Functions
 
 	const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -14,7 +25,14 @@ export function Form() {
 			},
 		})
 			.then((response) => response.json())
-			.then((data) => setShortCode(data.shortCode))
+			.then(({ shortCode, longUrl, id }) => {
+				setShortCode(shortCode);
+				addUrl({
+					id: id,
+					longUrl: longUrl,
+					shortCode: shortCode,
+				});
+			})
 			.catch((error) => console.error(error));
 	};
 
@@ -30,25 +48,26 @@ export function Form() {
 	};
 
 	return (
-		<div>
+		<div className="form-container">
 			<form onSubmit={handleSubmit}>
-				<input
+				<Input
+					name="longUrl"
 					type="url"
 					value={longUrl}
-					onChange={(e) => setLongUrl(e.target.value)}
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+						setLongUrl(e.target.value)
+					}
 					placeholder="Enter your URL"
 					required
 				/>
-				<button type="submit">Shorten</button>
+				<Button type="submit">Shorten</Button>
 			</form>
 			{shortCode && (
-				<div>
-					<p>
-						Your shortened URL is:{" "}
-						<button onClick={() => redirectToShortUrl(shortCode)}>
-							{shortCode}
-						</button>
-					</p>
+				<div className="response-container">
+					<p>Your new shortened URL is:</p>
+					<Button onClick={() => redirectToShortUrl(shortCode)}>
+						{shortCode}
+					</Button>
 				</div>
 			)}
 		</div>
