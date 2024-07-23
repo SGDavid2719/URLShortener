@@ -1,0 +1,15 @@
+.futuristic-container {
+	background-color: var(--background-dark);
+	color: var(--text-light-gray);
+	padding-left: 5rem;
+	padding-right: 5rem;
+	padding-top: 2rem;
+	font-family: "Roboto", sans-serif;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+hr {
+	width: 100%;
+}

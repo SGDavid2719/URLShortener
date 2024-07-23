@@ -1,0 +1,21 @@
+.futuristic-button {
+	background-color: var(--background-dark);
+	color: var(--text-white);
+	border: 2px solid var(--primary-neon-blue);
+	border-radius: 10px;
+	padding: 0.5rem 1rem;
+	font-family: "Roboto", sans-serif;
+	font-size: 1rem;
+	cursor: pointer;
+	outline: none;
+	transition: all 0.3s ease;
+	box-shadow: 0 0 10px var(--shadow-neon-blue), 0 0 20px var(--shadow-neon-blue);
+	overflow: hidden;
+}
+
+.futuristic-button:hover {
+	color: var(--primary-neon-green);
+	box-shadow: 0 0 15px var(--primary-neon-green),
+		0 0 30px var(--primary-neon-green);
+	border-color: var(--primary-neon-green);
+}
